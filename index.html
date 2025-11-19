@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación a mi Graduación - Final</title>
+    <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- ESTILOS CSS --- */
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f0f0f0; /* Fondo Gris Claro */
+            color: #000000; /* Letras Negras (Predeterminado) */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden; /* Evitar scroll horizontal por birretes */
+        }
+
+        /* Contenedor de la Invitación */
+        .invitation-container {
+            max-width: 650px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff; /* Fondo del contenedor Blanco */
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 9; /* Por debajo de los birretes (que tienen 9999) */
+            color: #000000;
+        }
+        
+        /* Asegurando que todo el texto sea negro */
+        h1, h2, .details p, .quote, h3, .details p strong { color: #000000 !important; }
+        
+        h1 { 
+            border-bottom: 3px solid #000000; /* Borde negro */
+            padding-bottom: 10px;
+        }
+        
+        .quote { 
+            border-left: 5px solid #000000; /* Borde negro */
+            padding: 10px 0 10px 15px;
+            margin: 30px auto;
+            max-width: 90%;
+            text-align: left;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #000000;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        /* --- ANIMACIÓN DE BIRRETES --- */
+        .birrete {
+            position: fixed; 
+            top: -250px; 
+            background-image: url('https://uploads.onecompiler.io/4455fys5k/4455fzsr7/birrete%20bmm.jpg'); 
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.9;
+            pointer-events: none; 
+            z-index: 9999; /* ¡Máxima prioridad para que caigan por encima del texto! */
+            animation-name: fall;
+            animation-timing-function: linear; 
+        }
+
+        /* Definición de la animación de caída */
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotateZ(0deg); 
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(110vh) rotateZ(360deg); /* Cae con rotación para dinamismo */
+                opacity: 0; /* Desaparece suavemente al final */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-container">
+        <h1>¡Invitación a mi Graduación!</h1>
+        
+        <h2>Con Cariño, dedico este logro a mis pilares:</h2>
+        <p>A mis padres, familia y amigos, sin cuyo apoyo este sueño no sería una realidad.</p>
+        
+        <hr>
+        
+        <div class="details">
+            <p>🎉 Te invito a celebrar el fin de una etapa inolvidable y el comienzo de mi futuro.</p>
+            <p><strong>Día:</strong> [Día de la Semana], [Día] de [Mes] de [Año]</p>
+            <p><strong>Hora:</strong> [Hora]:00 p.m.</p>
+            <p><strong>Lugar:</strong> [Nombre del Salón o Evento], [Dirección]</p>
+        </div>
+
+        <div class="quote">
+            "La educación es el vestido de gala para asistir a la fiesta de la vida."
+        </div>
+        
+        <h3>— [Tu Nombre Aquí y Carrera]</h3>
+    </div>
+
+    <script>
+        const bodyElement = document.body;
+        const initialBirreteCount = 8; // Aumentamos la cantidad inicial para un efecto más notorio
+
+        // Función para crear un birrete
+        function createBirrete() {
+            const birrete = document.createElement('div');
+            birrete.classList.add('birrete');
+            
+            // Tamaños variables (70px a 170px)
+            const randomSize = Math.random() * 100 + 70; 
+            // Duración variable (7 a 12 segundos) para que caigan a diferentes velocidades
+            const fixedDuration = Math.random() * 5 + 7; 
+            const randomX = Math.random() * window.innerWidth;
+            // Retraso de 0 a 3 segundos para que aparezcan escalonadamente
+            const randomDelay = Math.random() * 3; 
+
+            birrete.style.left = `${randomX}px`;
+            birrete.style.width = `${randomSize}px`;
+            birrete.style.height = `${randomSize}px`;
+            birrete.style.animationDuration = `${fixedDuration}s`;
+            birrete.style.animationDelay = `${randomDelay}s`; 
+            
+            bodyElement.appendChild(birrete);
+
+            // Cuando un birrete termina de caer, lo eliminamos y creamos uno nuevo inmediatamente
+            birrete.addEventListener('animationend', () => {
+                birrete.remove();
+                createBirrete(); 
+            });
+        }
+
+        // Crea los birretes iniciales para empezar la animación al cargar la página
+        for (let i = 0; i < initialBirreteCount; i++) {
+            createBirrete();
+        }
+
+        // Asegurar que haya birretes cayendo constantemente (cada 1.5 segundos se añade uno)
+        setInterval(createBirrete, 1500); 
+    </script>
+
+</body>
+</html>
